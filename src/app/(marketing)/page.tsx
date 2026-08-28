@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CheckCircle, Shield, Building2, BarChart3, FileText, Lightbulb, Bot, Activity, ArrowRight, Star } from 'lucide-react'
+import { CheckCircle, Shield, Building2, BarChart3, FileText, Lightbulb, Bot, Activity, ArrowRight } from 'lucide-react'
 
 const FEATURES = [
   { icon: Building2, title: 'Vendor Registry', description: 'Centralize all vendor profiles with contacts, contracts, spend, and status in one searchable database.' },
@@ -12,22 +12,12 @@ const FEATURES = [
   { icon: BarChart3, title: 'Analytics & Reports', description: 'Generate executive-ready reports and visualize portfolio health with real-time dashboards.' },
 ]
 
-const TESTIMONIALS = [
-  { name: 'Sarah Chen', role: 'CPO at TechFlow', text: 'VendorLens cut our vendor review time by 60%. The risk tracking alone paid for itself in the first month.' },
-  { name: 'Marcus Williams', role: 'Head of Procurement, HealthFirst', text: "We went from spreadsheets to a professional vendor program in a week. The onboarding was surprisingly smooth." },
-  { name: 'Priya Patel', role: 'Risk Manager, Meridian Capital', text: 'The AI assistant is genuinely useful. I can ask about vendor risk exposure and get a real answer instantly.' },
-]
-
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-sm text-slate-600 mb-8">
-            <span className="w-2 h-2 rounded-full bg-green-500" />
-            Trusted by procurement teams at 200+ companies
-          </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight tracking-tight">
             Know Your Vendors.<br />Understand Your Risk.
           </h1>
@@ -44,20 +34,6 @@ export default function LandingPage() {
             </Link>
           </div>
           <p className="text-xs text-slate-400 mt-4">Free plan includes up to 5 vendors. No credit card needed.</p>
-        </div>
-      </section>
-
-      {/* Social proof */}
-      <section className="py-10 bg-slate-900 text-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[['200+', 'Companies'], ['10,000+', 'Vendors managed'], ['$2.4B+', 'Spend tracked'], ['98%', 'Customer satisfaction']].map(([num, label]) => (
-              <div key={label}>
-                <p className="text-2xl font-bold text-sky-400">{num}</p>
-                <p className="text-sm text-slate-400 mt-1">{label}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -108,29 +84,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">Trusted by procurement leaders</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map(t => (
-              <div key={t.name} className="rounded-xl border border-slate-200 p-6">
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />)}
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed">&quot;{t.text}&quot;</p>
-                <div className="mt-4 border-t border-slate-100 pt-4">
-                  <p className="text-sm font-semibold text-slate-900">{t.name}</p>
-                  <p className="text-xs text-slate-400">{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Pricing preview */}
       <section id="pricing" className="py-20 bg-slate-900 text-white px-4 sm:px-6">
         <div className="max-w-4xl mx-auto">
@@ -174,7 +127,7 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-slate-900">Ready to get control of your vendor risk?</h2>
-          <p className="text-slate-500 mt-4">Join 200+ companies that trust VendorLens to manage their third-party risk.</p>
+          <p className="text-slate-500 mt-4">Start managing your vendor relationships and third-party risk in minutes.</p>
           <Link href="/signup" className="inline-flex items-center gap-2 rounded-lg bg-sky-500 px-8 py-3.5 text-base font-semibold text-white hover:bg-sky-600 transition-colors mt-8">
             Create free account
             <ArrowRight className="h-4 w-4" />
