@@ -6,20 +6,20 @@ import { Button } from '@/components/ui/button'
 
 export function MarketingNav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0f1e]/80 backdrop-blur-xl border-b border-white/8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Logo />
-        <div className="hidden md:flex items-center gap-6 text-sm text-slate-600">
-          <Link href="#features" className="hover:text-slate-900 transition-colors">Features</Link>
-          <Link href="#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
-          <Link href="/pricing" className="hover:text-slate-900 transition-colors">Compare Plans</Link>
+        <div className="hidden md:flex items-center gap-6 text-sm text-slate-400">
+          <Link href="#features" className="hover:text-white transition-colors">Features</Link>
+          <Link href="#pricing" className="hover:text-white transition-colors">Pricing</Link>
+          <Link href="/pricing" className="hover:text-white transition-colors">Compare Plans</Link>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/signin">
-            <Button variant="ghost" size="sm">Sign in</Button>
+          <Link href="/signin" className="text-sm text-slate-400 hover:text-white transition-colors px-3 py-1.5">
+            Sign in
           </Link>
-          <Link href="/signup">
-            <Button size="sm">Get started free</Button>
+          <Link href="/signup" className="rounded-lg bg-gradient-to-r from-sky-500 to-cyan-500 px-4 py-1.5 text-sm font-semibold text-white hover:opacity-90 transition-opacity shadow-lg shadow-sky-500/20">
+            Get started free
           </Link>
         </div>
       </div>
