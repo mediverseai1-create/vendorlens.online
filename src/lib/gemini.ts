@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
 export async function analyzeVendorData(context: string, userMessage: string): Promise<string> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+  const model = genAI.getGenerativeModel({ model: 'gemini-3.6-flash' })
 
   const prompt = `You are VendorLens AI, an expert vendor intelligence and third-party risk management assistant.
 

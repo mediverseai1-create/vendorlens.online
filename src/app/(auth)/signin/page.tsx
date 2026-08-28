@@ -27,7 +27,13 @@ export default function SignInPage() {
       setError(authError.message)
       return
     }
-    router.push('/dashboard')
+    // Check if user has org — if not, send to onboarding
+    const { data: membership } = await supabase
+      .from('organization_members')
+      .select('id')
+      .limit(1)
+      .single()
+    router.push(membership ? '/dashboard' : '/onboarding')
     router.refresh()
   }
 

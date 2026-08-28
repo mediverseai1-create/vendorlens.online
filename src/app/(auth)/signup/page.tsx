@@ -23,7 +23,7 @@ export default function SignUpPage() {
   async function onSubmit(data: SignUpInput) {
     setError(null)
     const supabase = createClient()
-    const { error: authError } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: { data: { full_name: data.full_name } },
@@ -32,8 +32,15 @@ export default function SignUpPage() {
       setError(authError.message)
       return
     }
+    // If session is returned immediately (email confirmation disabled), go to onboarding
+    if (authData.session) {
+      router.push('/onboarding')
+      router.refresh()
+      return
+    }
+    // Otherwise show "check email" confirmation screen
     setSuccess(true)
-    setTimeout(() => router.push('/signin'), 3000)
+    setTimeout(() => router.push('/signin'), 5000)
   }
 
   if (success) {

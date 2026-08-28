@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
 import { slugify } from '@/lib/utils'
 import { INDUSTRIES, COMPANY_SIZES, COUNTRIES } from '@/lib/constants'
 import { Button } from '@/components/ui/button'
@@ -42,43 +41,17 @@ export default function OnboardingPage() {
     setLoading(true)
     setError(null)
     try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error('Not authenticated')
+      const orgId = crypto.randomUUID()
+      const orgName = org.name || 'My Organization'
+      const slug = slugify(orgName) + '-' + Math.random().toString(36).slice(2, 6)
 
-      // Update profile
-      await supabase.from('profiles').upsert({
-        id: user.id,
-        full_name: profile.full_name || user.user_metadata?.full_name,
-        email: user.email,
-        job_role: profile.job_role,
-        phone: profile.phone,
+      const res = await fetch('/api/onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ profile, org: { ...org, name: orgName, slug }, orgId }),
       })
-
-      // Create organization
-      const slug = slugify(org.name) + '-' + Math.random().toString(36).slice(2, 6)
-      const { data: orgData, error: orgErr } = await supabase
-        .from('organizations')
-        .insert({ name: org.name, slug, industry: org.industry, size: org.size, country: org.country, website: org.website || null })
-        .select()
-        .single()
-      if (orgErr) throw orgErr
-
-      // Add owner membership
-      await supabase.from('organization_members').insert({
-        organization_id: orgData.id,
-        user_id: user.id,
-        role: 'owner',
-      })
-
-      // Create free subscription
-      await supabase.from('subscriptions').insert({
-        organization_id: orgData.id,
-        plan: 'free',
-        status: 'active',
-        vendor_limit: 5,
-        user_limit: 1,
-      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Setup failed')
 
       setStep(3)
       setTimeout(() => router.push('/dashboard'), 2000)
