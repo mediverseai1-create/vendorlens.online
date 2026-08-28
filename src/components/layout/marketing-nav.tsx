@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 
 export function MarketingNav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0f1e]/80 backdrop-blur-xl border-b border-white/8">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl" style={{ background: 'rgba(13,27,46,0.85)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <Logo />
         <div className="hidden md:flex items-center gap-6 text-sm text-slate-400">
