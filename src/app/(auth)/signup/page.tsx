@@ -59,7 +59,7 @@ export default function SignUpPage() {
     <Card className="w-full max-w-sm">
       <CardHeader className="text-center">
         <CardTitle>Create your account</CardTitle>
-        <CardDescription>Start managing your vendors today — free forever</CardDescription>
+
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
