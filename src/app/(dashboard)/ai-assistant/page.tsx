@@ -1,10 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent } from '@/components/ui/card'
-import { Bot, Send, User } from 'lucide-react'
+import { Bot, Send, User, Sparkles } from 'lucide-react'
 
 interface Message {
   role: 'user' | 'assistant'
@@ -12,18 +11,23 @@ interface Message {
 }
 
 const QUICK_PROMPTS = [
-  'Which vendors are high risk?',
-  'What needs immediate attention?',
-  'Summarize my vendor portfolio',
-  'Which vendors have expiring contracts?',
-  'What evaluations are overdue?',
-  'Are there any critical risk findings?',
+  'Which accounts are declining this quarter?',
+  'Where is revenue most at risk?',
+  'Which customers haven\'t ordered in 60 days?',
+  'What should my team follow up on this week?',
+  'Which accounts have the most revenue exposure?',
+  'Show me accounts with shrinking order volumes',
 ]
 
 export default function AiAssistantPage() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
+  const bottomRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages, loading])
 
   async function sendMessage(message: string) {
     if (!message.trim() || loading) return
@@ -38,33 +42,54 @@ export default function AiAssistantPage() {
         body: JSON.stringify({ message }),
       })
       const data = await res.json()
-      setMessages(prev => [...prev, { role: 'assistant', content: data.response || data.error || 'Sorry, something went wrong.' }])
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: data.response || data.error || 'Something went wrong. Try again.',
+      }])
     } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Failed to get a response. Please try again.' }])
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Failed to reach VendorLens AI. Please try again.' }])
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)] max-w-3xl">
-      <div className="mb-4">
-        <h1 className="text-xl font-semibold text-slate-900">AI Assistant</h1>
-        <p className="text-sm text-slate-500">Ask questions about your vendor portfolio and risk data</p>
+    <div className="flex flex-col h-[calc(100vh-56px-48px)] max-w-3xl">
+
+      {/* Header */}
+      <div className="mb-5">
+        <div className="flex items-center gap-3 mb-1">
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #0369a1, #0891b2)' }}>
+            <Bot className="h-4 w-4 text-white" />
+          </div>
+          <h1 className="text-xl font-bold text-slate-900">Ask VendorLens</h1>
+        </div>
+        <p className="text-sm text-slate-500 ml-11">Ask in plain language. The answer comes back with the numbers it came from.</p>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
+      <div className="flex-1 overflow-y-auto space-y-5 pr-1">
         {messages.length === 0 && (
-          <div className="text-center py-12">
-            <Bot className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-            <p className="text-sm text-slate-500 mb-6">Ask me anything about your vendors, risks, and evaluations.</p>
-            <div className="flex flex-wrap gap-2 justify-center">
+          <div className="py-8">
+            <div className="rounded-2xl p-6 mb-6" style={{ background: 'linear-gradient(135deg, #f0f9ff, #e0f2fe)', border: '1px solid #bae6fd' }}>
+              <div className="flex items-start gap-3">
+                <Sparkles className="h-5 w-5 mt-0.5 shrink-0" style={{ color: '#0891b2' }} />
+                <div>
+                  <p className="text-sm font-semibold text-slate-900">VendorLens reads your account data</p>
+                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                    It knows every account, every risk flag, every document and evaluation in your workspace. Ask it what you need to know — it responds with the figures behind every statement.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p className="text-xs font-semibold tracking-widest uppercase text-slate-400 mb-3">Suggested questions</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {QUICK_PROMPTS.map(prompt => (
                 <button
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
-                  className="text-xs px-3 py-1.5 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-sky-300 transition-colors"
+                  className="text-left text-xs px-4 py-3 rounded-xl border text-slate-600 hover:text-slate-900 transition-all duration-150 hover:shadow-sm"
+                  style={{ borderColor: '#e2e8f0', background: 'white' }}
                 >
                   {prompt}
                 </button>
@@ -75,41 +100,56 @@ export default function AiAssistantPage() {
 
         {messages.map((msg, i) => (
           <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-            <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${msg.role === 'user' ? 'bg-sky-500' : 'bg-slate-800'}`}>
-              {msg.role === 'user' ? <User className="h-4 w-4 text-white" /> : <Bot className="h-4 w-4 text-white" />}
+            <div
+              className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+              style={msg.role === 'user'
+                ? { background: '#f1f5f9', border: '1px solid #e2e8f0' }
+                : { background: 'linear-gradient(135deg, #0369a1, #0891b2)' }
+              }
+            >
+              {msg.role === 'user'
+                ? <User className="h-4 w-4 text-slate-500" />
+                : <Bot className="h-4 w-4 text-white" />
+              }
             </div>
-            <Card className={`max-w-[80%] ${msg.role === 'user' ? 'bg-sky-50 border-sky-200' : ''}`}>
-              <CardContent className="py-3 px-4">
-                <p className="text-sm text-slate-800 whitespace-pre-wrap leading-relaxed">{msg.content}</p>
-              </CardContent>
-            </Card>
+            <div
+              className="max-w-[82%] rounded-2xl px-4 py-3 text-sm leading-relaxed text-slate-800 whitespace-pre-wrap"
+              style={msg.role === 'user'
+                ? { background: '#f1f5f9', borderRadius: '16px 4px 16px 16px' }
+                : { background: 'white', border: '1px solid #e2e8f0', borderRadius: '4px 16px 16px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }
+              }
+            >
+              {msg.content}
+            </div>
           </div>
         ))}
 
         {loading && (
           <div className="flex gap-3">
-            <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #0369a1, #0891b2)' }}>
               <Bot className="h-4 w-4 text-white" />
             </div>
-            <Card>
-              <CardContent className="py-3 px-4">
-                <div className="flex gap-1">
-                  <span className="w-2 h-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '300ms' }} />
-                </div>
-              </CardContent>
-            </Card>
+            <div className="rounded-2xl px-4 py-3 flex items-center gap-1" style={{ background: 'white', border: '1px solid #e2e8f0' }}>
+              <span className="w-2 h-2 rounded-full bg-slate-300 animate-bounce" style={{ animationDelay: '0ms' }} />
+              <span className="w-2 h-2 rounded-full bg-slate-300 animate-bounce" style={{ animationDelay: '150ms' }} />
+              <span className="w-2 h-2 rounded-full bg-slate-300 animate-bounce" style={{ animationDelay: '300ms' }} />
+            </div>
           </div>
         )}
+        <div ref={bottomRef} />
       </div>
 
       {/* Input */}
-      <div className="border-t border-slate-200 pt-4">
+      <div className="pt-4" style={{ borderTop: '1px solid #e2e8f0' }}>
         {messages.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
             {QUICK_PROMPTS.slice(0, 3).map(prompt => (
-              <button key={prompt} onClick={() => sendMessage(prompt)} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
+              <button
+                key={prompt}
+                onClick={() => sendMessage(prompt)}
+                className="text-xs px-3 py-1.5 rounded-lg border text-slate-500 hover:text-slate-800 transition-colors"
+                style={{ borderColor: '#e2e8f0', background: 'white' }}
+              >
                 {prompt}
               </button>
             ))}
@@ -119,8 +159,8 @@ export default function AiAssistantPage() {
           <Textarea
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder="Ask about your vendors..."
-            className="resize-none min-h-0 h-10 py-2"
+            placeholder="Ask about your accounts, risk exposure, or what to do next…"
+            className="resize-none min-h-0 h-10 py-2 text-sm"
             rows={1}
             onKeyDown={e => {
               if (e.key === 'Enter' && !e.shiftKey) {
@@ -129,11 +169,17 @@ export default function AiAssistantPage() {
               }
             }}
           />
-          <Button onClick={() => sendMessage(input)} disabled={!input.trim() || loading} size="icon">
+          <Button
+            onClick={() => sendMessage(input)}
+            disabled={!input.trim() || loading}
+            className="shrink-0"
+            style={{ background: 'linear-gradient(135deg, #0369a1, #0891b2)' }}
+            size="icon"
+          >
             <Send className="h-4 w-4" />
           </Button>
         </div>
-        <p className="text-xs text-slate-400 mt-2">Powered by Google Gemini · Data from your Supabase database</p>
+        <p className="text-xs text-slate-400 mt-2">VendorLens AI reads your workspace data and responds with figures, not generalities.</p>
       </div>
     </div>
   )

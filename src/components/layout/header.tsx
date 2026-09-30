@@ -15,16 +15,16 @@ export function Header({ title, user }: HeaderProps) {
     : user?.email?.[0]?.toUpperCase() ?? 'U'
 
   return (
-    <header className="h-14 border-b border-slate-200 bg-white flex items-center justify-between px-6 shrink-0">
+    <header className="h-14 flex items-center justify-between px-6 shrink-0" style={{ borderBottom: '1px solid #e2e8f0', background: 'white' }}>
       <div>
-        {title && <h1 className="text-base font-semibold text-slate-900">{title}</h1>}
+        {title && <p className="text-sm font-semibold text-slate-700">{title}</p>}
       </div>
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" className="relative">
+      <div className="flex items-center gap-2">
+        <Button variant="ghost" size="icon" className="relative text-slate-400 hover:text-slate-700">
           <Bell className="h-4 w-4" />
         </Button>
         <Avatar className="h-8 w-8">
-          <AvatarFallback className="text-xs bg-sky-100 text-sky-700">{initials}</AvatarFallback>
+          <AvatarFallback className="text-xs font-semibold" style={{ background: '#e0f2fe', color: '#0369a1' }}>{initials}</AvatarFallback>
         </Avatar>
       </div>
     </header>

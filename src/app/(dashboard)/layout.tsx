@@ -15,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     .single()
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
+    <div className="flex h-screen overflow-hidden" style={{ background: '#f8fafc' }}>
       <Sidebar />
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header user={profile} />

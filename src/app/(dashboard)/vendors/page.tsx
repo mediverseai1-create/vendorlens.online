@@ -40,12 +40,13 @@ export default async function VendorsPage({ searchParams }: { searchParams: Prom
     <div className="space-y-6 max-w-7xl">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold text-slate-900">Vendors</h1>
-          <p className="text-sm text-slate-500">{vendors?.length ?? 0} total vendors</p>
+          <p className="text-xs font-semibold tracking-widest uppercase text-slate-400 mb-1">Revenue Intelligence</p>
+          <h1 className="text-2xl font-bold text-slate-900">Accounts</h1>
+          <p className="text-sm text-slate-500">{vendors?.length ?? 0} account{(vendors?.length ?? 0) !== 1 ? 's' : ''} in your workspace</p>
         </div>
-        <Link href="/vendors/new" className="flex items-center gap-2 rounded-md bg-sky-500 px-4 py-2 text-sm font-medium text-white hover:bg-sky-600 transition-colors">
+        <Link href="/vendors/new" className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white hover:scale-[1.02] transition-all" style={{ background: 'linear-gradient(135deg, #0369a1, #0891b2)' }}>
           <Plus className="h-4 w-4" />
-          Add Vendor
+          Add account
         </Link>
       </div>
 
@@ -54,7 +55,7 @@ export default async function VendorsPage({ searchParams }: { searchParams: Prom
         <input
           name="search"
           defaultValue={params.search}
-          placeholder="Search vendors..."
+          placeholder="Search accounts…"
           className="flex h-9 rounded-md border border-slate-200 bg-white px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 w-64"
         />
         <select name="status" defaultValue={params.status} className="h-9 rounded-md border border-slate-200 bg-white px-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
