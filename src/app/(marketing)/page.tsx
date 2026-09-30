@@ -5,37 +5,37 @@ const SIGNALS = [
   {
     icon: BarChart2,
     title: 'Trends and patterns',
-    desc: 'Where your account revenue is heading, which orders drove the change, and whether shifts are a dip or a direction.',
+    desc: 'Where account revenue is heading over time, which customers and products drove the change, and whether a movement is a temporary dip or a direction your business is drifting in.',
     accent: '#0891b2',
   },
   {
     icon: TrendingUp,
     title: 'High-value opportunities',
-    desc: 'Accounts buying one product line who could buy more, and regions where the same motion could be repeated.',
+    desc: 'Accounts that buy from one part of your range but not another. Products growing in one region that have barely been tried in the next. The expansion your team has not spotted yet.',
     accent: '#0d9488',
   },
   {
     icon: TrendingDown,
     title: 'Underperformance',
-    desc: 'Products, accounts and regions falling behind the rest — how far, since when, and whether it is getting worse.',
+    desc: 'Products selling less than they were, accounts ordering less than comparable accounts, regions where revenue is flat or falling — how far behind, since when, and whether the gap is widening.',
     accent: '#7c3aed',
   },
   {
     icon: Users,
     title: 'Declining customers',
-    desc: 'Accounts placing smaller orders or going longer between them, surfaced before they say anything or leave.',
+    desc: 'Accounts whose orders are getting smaller, or whose gaps between orders are getting longer — surfaced while there is still time to call them, not after their last order has quietly been their last.',
     accent: '#dc2626',
   },
   {
     icon: AlertTriangle,
     title: 'Revenue at risk',
-    desc: 'The exposure hiding behind a total that still looks healthy: concentration, slowing repeat business, single-account dependency.',
+    desc: 'Too much revenue riding on too few accounts. Repeat business slowing down without anyone flagging it. One account carrying a weight that would hurt the moment it left.',
     accent: '#ea580c',
   },
   {
     icon: TrendingUp,
     title: 'Room to grow',
-    desc: 'Your best-performing motions named, with the accounts and regions where the same approach is most likely to work again.',
+    desc: 'The sales approaches that are already working — named, with the products, account types and regions where applying the same motion is most likely to produce the same result.',
     accent: '#059669',
   },
 ]
@@ -43,18 +43,18 @@ const SIGNALS = [
 const STEPS = [
   {
     num: '01',
-    title: 'Connect your data.',
-    desc: 'Upload your sales exports and call recordings. VendorLens reads the full picture across every account.',
+    title: 'Upload your order data and your team\'s customer conversations.',
+    desc: 'Exports of what each account has bought, when and how much. Recordings or transcripts of your team\'s sales calls, account check-ins and renewal conversations with customers. VendorLens reads both together.',
   },
   {
     num: '02',
     title: 'The briefing is written for you.',
-    desc: 'What changed, what is at risk, and why — with the figures behind every statement, not a dashboard to interpret.',
+    desc: 'VendorLens produces a written briefing: what changed in your accounts, which ones are at risk and why, with the figures behind every statement. No chart to interpret. A document to read and act on.',
   },
   {
     num: '03',
     title: 'Your team works the queue.',
-    desc: 'Every recommendation arrives with its reason and a way to act on it. One click to mark it done.',
+    desc: 'The briefing resolves into a prioritised queue. Each item arrives with the account name, the reason it was flagged, and a way to act. Your team works through it. One click marks it done.',
   },
 ]
 
@@ -72,7 +72,7 @@ const GOVERNANCE = [
   {
     icon: Shield,
     title: 'Your data stays yours',
-    desc: 'Uploaded files and call recordings are used to run your workspace and nothing else. They are never used to train shared models.',
+    desc: 'Your order exports and the recordings of your team\'s calls with customers are used to run your workspace and nothing else. They are never used to train shared models.',
   },
 ]
 
@@ -92,15 +92,15 @@ export default function LandingPage() {
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-[4.25rem] font-bold leading-[1.06] tracking-tight text-slate-900">
-            Your accounts are already
+            The total looks healthy.
             <br />
             <span style={{ background: 'linear-gradient(90deg, #0369a1 0%, #0891b2 50%, #0d9488 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              telling you who is leaving.
+              The accounts behind it do not.
             </span>
           </h1>
 
           <p className="text-lg text-slate-500 mt-6 max-w-2xl mx-auto leading-relaxed">
-            VendorLens reads every order, every call and every account across your business, then tells your team which customers are slipping, how much revenue is exposed, and exactly who to contact first.
+            VendorLens reads your order history and your team&apos;s calls with customers, then tells your sales team which accounts are slipping, how much revenue is exposed, and exactly who to contact this week.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
@@ -122,7 +122,7 @@ export default function LandingPage() {
           </div>
 
           <p className="text-xs text-slate-400 mt-5 tracking-wide">
-            Order data analysis &nbsp;·&nbsp; Call intelligence &nbsp;·&nbsp; Workspace-level security
+            Order history &nbsp;·&nbsp; Your team&apos;s customer conversations &nbsp;·&nbsp; Workspace-level security
           </p>
         </div>
       </section>
@@ -134,7 +134,7 @@ export default function LandingPage() {
             A healthy total can hide a shrinking base.
           </h2>
           <p className="text-slate-300 mt-5 text-lg leading-relaxed max-w-xl mx-auto">
-            Averages hide the accounts that matter. VendorLens watches each one continuously, so a customer buying less is found in weeks, not after they are gone.
+            Revenue that looks fine in the total is often leaking account by account. By the time the decline shows in your numbers, those customers are already gone. VendorLens finds them in weeks.
           </p>
         </div>
       </section>
@@ -145,7 +145,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0891b2' }}>What it finds</p>
             <h2 className="text-4xl font-bold text-slate-900">Six signals, read from your own data, every run.</h2>
-            <p className="text-slate-500 mt-4 max-w-xl mx-auto">VendorLens does not average or aggregate. It reads every account and surfaces each one that needs your attention.</p>
+            <p className="text-slate-500 mt-4 max-w-xl mx-auto">It does not look at totals or averages. It reads every account individually and surfaces each one that has changed — before that change reaches your revenue line.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -218,10 +218,10 @@ export default function LandingPage() {
             <div className="relative max-w-xl">
               <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#0891b2' }}>Conversations</p>
               <h2 className="text-3xl font-bold text-slate-900 leading-snug">
-                What customers say on calls joins what they buy.
+                What your team hears on customer calls sits next to what those customers actually buy.
               </h2>
               <p className="text-slate-600 mt-5 leading-relaxed">
-                Upload a recording or transcript and the intent, objections, commitments and competitor mentions are extracted automatically and added to the account record. Nothing is filled in by hand.
+                Upload a recording or transcript from your team&apos;s calls with customers — sales conversations, account check-ins, renewal calls — and VendorLens extracts what each customer wants to buy, what is holding them back, what your team promised, and which competitors they mentioned. All of it is attached to that customer&apos;s account record, beside their order history. Nothing is typed in by hand.
               </p>
               <Link
                 href="/signup"
@@ -370,7 +370,7 @@ export default function LandingPage() {
             See the accounts your totals are hiding.
           </h2>
           <p className="text-slate-300 mt-5 leading-relaxed">
-            VendorLens reads your order data, flags the accounts quietly slipping, and tells your team who to contact this week and why.
+            Upload your order history and your team&apos;s customer conversations. VendorLens reads them together, writes the briefing, and gives your team a queue to work. First item: the account most at risk of leaving.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
             <Link
