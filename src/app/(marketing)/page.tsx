@@ -1,41 +1,41 @@
 import Link from 'next/link'
-import { CheckCircle, TrendingDown, AlertTriangle, TrendingUp, BarChart2, Users, ArrowRight, Shield, Database, Lock } from 'lucide-react'
+import { CheckCircle, TrendingDown, AlertTriangle, TrendingUp, BarChart2, Users, ArrowRight, Shield, Database, Lock, FileText, Zap, Bell } from 'lucide-react'
 
-const SIGNALS = [
+const MODULES = [
   {
-    icon: BarChart2,
-    title: 'Trends and patterns',
-    desc: 'Where account revenue is heading over time, which customers and products drove the change, and whether a movement is a temporary dip or a direction your business is drifting in.',
+    icon: FileText,
+    title: 'Revenue Briefings',
+    desc: 'Every run, VendorLens writes a plain-language briefing for your team: which accounts changed, what the change means, and what to do about it. A document you read in five minutes — not a dashboard you have to interpret.',
     accent: '#0891b2',
   },
   {
-    icon: TrendingUp,
-    title: 'High-value opportunities',
-    desc: 'Accounts that buy from one part of your range but not another. Products growing in one region that have barely been tried in the next. The expansion your team has not spotted yet.',
-    accent: '#0d9488',
-  },
-  {
-    icon: TrendingDown,
-    title: 'Underperformance',
-    desc: 'Products selling less than they were, accounts ordering less than comparable accounts, regions where revenue is flat or falling — how far behind, since when, and whether the gap is widening.',
-    accent: '#7c3aed',
-  },
-  {
-    icon: Users,
-    title: 'Declining customers',
-    desc: 'Accounts whose orders are getting smaller, or whose gaps between orders are getting longer — surfaced while there is still time to call them, not after their last order has quietly been their last.',
-    accent: '#dc2626',
-  },
-  {
     icon: AlertTriangle,
-    title: 'Revenue at risk',
-    desc: 'Too much revenue riding on too few accounts. Repeat business slowing down without anyone flagging it. One account carrying a weight that would hurt the moment it left.',
+    title: 'Account Risk Scoring',
+    desc: 'Every account is scored for risk based on order frequency, order size trend, and time since last order. Scores update each run. High-risk accounts are surfaced at the top of every briefing.',
     accent: '#ea580c',
   },
   {
-    icon: TrendingUp,
-    title: 'Room to grow',
-    desc: 'The sales approaches that are already working — named, with the products, account types and regions where applying the same motion is most likely to produce the same result.',
+    icon: Users,
+    title: 'Call Intelligence',
+    desc: 'Upload a recording or transcript from any customer call — sales call, account review, renewal conversation. VendorLens extracts buying intent, objections raised, commitments your team made, and competitors mentioned, then attaches them to that account record.',
+    accent: '#0d9488',
+  },
+  {
+    icon: Zap,
+    title: 'Action Queue',
+    desc: 'Every insight the AI generates becomes a task in your team\'s queue. Each task shows the account name, the reason it was flagged, and what to do next. Your team works through it. One click marks it done and logs the action.',
+    accent: '#7c3aed',
+  },
+  {
+    icon: TrendingDown,
+    title: 'Decline Detection',
+    desc: 'Accounts placing smaller orders or going longer between orders are flagged automatically — with the order trend behind the flag. Catch the signal early enough to make a call, not after the customer has already moved on.',
+    accent: '#dc2626',
+  },
+  {
+    icon: BarChart2,
+    title: 'Expansion Intelligence',
+    desc: 'Accounts buying from one product category but not others, and regions where a product is selling well but has barely been introduced — identified from your own order history, no manual analysis required.',
     accent: '#059669',
   },
 ]
@@ -43,18 +43,23 @@ const SIGNALS = [
 const STEPS = [
   {
     num: '01',
-    title: 'Upload your order data and your team\'s customer conversations.',
-    desc: 'Exports of what each account has bought, when and how much. Recordings or transcripts of your team\'s sales calls, account check-ins and renewal conversations with customers. VendorLens reads both together.',
+    title: 'Upload your order data.',
+    desc: 'Export from your ERP, distribution platform, accounting software, or spreadsheets. Upload as CSV or Excel. VendorLens reads your account structure and order history automatically — no custom integration required.',
   },
   {
     num: '02',
-    title: 'The briefing is written for you.',
-    desc: 'VendorLens produces a written briefing: what changed in your accounts, which ones are at risk and why, with the figures behind every statement. No chart to interpret. A document to read and act on.',
+    title: 'Add your customer call recordings.',
+    desc: 'Drop in recordings or transcripts from your team\'s customer calls: sales conversations, account check-ins, renewal calls, follow-ups. Supported: MP3, MP4, WAV, PDF, TXT. Each file is matched to the right account.',
   },
   {
     num: '03',
-    title: 'Your team works the queue.',
-    desc: 'The briefing resolves into a prioritised queue. Each item arrives with the account name, the reason it was flagged, and a way to act. Your team works through it. One click marks it done.',
+    title: 'Get your revenue briefing.',
+    desc: 'VendorLens reads everything, scores every account for risk, and writes your first revenue briefing. First run takes a few minutes. Scheduled runs update on a cadence you set — daily on Professional and Business plans.',
+  },
+  {
+    num: '04',
+    title: 'Work the action queue.',
+    desc: 'The briefing resolves into a prioritised action queue. Every item has an account name, a reason, and a suggested next action. Your team works through it in the platform. Completed items are logged automatically.',
   },
 ]
 
@@ -67,12 +72,12 @@ const GOVERNANCE = [
   {
     icon: Lock,
     title: 'Role-based access for the whole team',
-    desc: 'Owners, admins and members see the same system — with the right level of control for each.',
+    desc: 'Three roles: Owner, Admin, and Member. Every person on your team can use the platform — each with the right level of control.',
   },
   {
     icon: Shield,
-    title: 'Your data stays yours',
-    desc: 'Your order exports and the recordings of your team\'s calls with customers are used to run your workspace and nothing else. They are never used to train shared models.',
+    title: 'Your data is never used to train models',
+    desc: 'Your order exports and call recordings are used to run your workspace and nothing else. They are never used to train shared models or improve the AI for other customers.',
   },
 ]
 
@@ -82,25 +87,23 @@ export default function LandingPage() {
 
       {/* ── Hero ───────────────────────────────────────────────── */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #ffffff 70%)' }}>
-        {/* Subtle radial glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] pointer-events-none" style={{ background: 'radial-gradient(ellipse at top, rgba(8,145,178,0.10) 0%, transparent 70%)' }} />
 
         <div className="relative max-w-4xl mx-auto text-center">
-          {/* Label */}
           <div className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold tracking-widest uppercase mb-8" style={{ borderColor: '#bae6fd', background: '#f0f9ff', color: '#0369a1' }}>
-            Revenue intelligence
+            AI-native revenue intelligence platform
           </div>
 
           <h1 className="text-5xl sm:text-6xl md:text-[4.25rem] font-bold leading-[1.06] tracking-tight text-slate-900">
-            The total looks healthy.
+            AI reads your accounts.
             <br />
             <span style={{ background: 'linear-gradient(90deg, #0369a1 0%, #0891b2 50%, #0d9488 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              The accounts behind it do not.
+              Your team works the queue.
             </span>
           </h1>
 
           <p className="text-lg text-slate-500 mt-6 max-w-2xl mx-auto leading-relaxed">
-            VendorLens reads your order history and your team&apos;s calls with customers, then tells your sales team which accounts are slipping, how much revenue is exposed, and exactly who to contact this week.
+            VendorLens connects to your order history and your team&apos;s customer call recordings. It scores every account for risk, writes a daily revenue briefing, and hands your team a prioritised action queue — so every rep knows exactly who to call and why.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
@@ -122,38 +125,38 @@ export default function LandingPage() {
           </div>
 
           <p className="text-xs text-slate-400 mt-5 tracking-wide">
-            Order history &nbsp;·&nbsp; Your team&apos;s customer conversations &nbsp;·&nbsp; Workspace-level security
+            CSV and Excel order exports &nbsp;·&nbsp; Call recordings and transcripts &nbsp;·&nbsp; No CRM required
           </p>
         </div>
       </section>
 
-      {/* ── Statement strip ────────────────────────────────────── */}
+      {/* ── Who it's for ───────────────────────────────────────── */}
       <section style={{ background: 'linear-gradient(135deg, #0c2d4a 0%, #0f3d5e 50%, #0c3a52 100%)' }} className="py-16 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white leading-snug">
-            A healthy total can hide a shrinking base.
+            Built for suppliers, distributors, and wholesalers.
           </h2>
-          <p className="text-slate-300 mt-5 text-lg leading-relaxed max-w-xl mx-auto">
-            Revenue that looks fine in the total is often leaking account by account. By the time the decline shows in your numbers, those customers are already gone. VendorLens finds them in weeks.
+          <p className="text-slate-300 mt-5 text-lg leading-relaxed max-w-2xl mx-auto">
+            Your reps manage dozens of repeat-order accounts. Most revenue tools are built for SaaS companies tracking monthly subscriptions. VendorLens is built for how your business actually works: order cycles, seasonal patterns, and account relationships managed through direct customer calls.
           </p>
         </div>
       </section>
 
-      {/* ── What it finds ──────────────────────────────────────── */}
+      {/* ── Platform modules ───────────────────────────────────── */}
       <section className="py-24 px-4 sm:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0891b2' }}>What it finds</p>
-            <h2 className="text-4xl font-bold text-slate-900">Six signals, read from your own data, every run.</h2>
-            <p className="text-slate-500 mt-4 max-w-xl mx-auto">It does not look at totals or averages. It reads every account individually and surfaces each one that has changed — before that change reaches your revenue line.</p>
+            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0891b2' }}>Platform</p>
+            <h2 className="text-4xl font-bold text-slate-900">Six intelligence modules. One workspace.</h2>
+            <p className="text-slate-500 mt-4 max-w-xl mx-auto">Every plan includes every module. No add-ons, no feature tiers. Credits determine how often you run the AI — not what it can see.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SIGNALS.map((s) => {
-              const Icon = s.icon
+            {MODULES.map((m) => {
+              const Icon = m.icon
               return (
                 <div
-                  key={s.title}
+                  key={m.title}
                   className="group rounded-2xl p-6 transition-all duration-300 hover:shadow-lg"
                   style={{
                     border: '1px solid #e2e8f0',
@@ -163,12 +166,12 @@ export default function LandingPage() {
                 >
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: `${s.accent}14`, border: `1px solid ${s.accent}30` }}
+                    style={{ background: `${m.accent}14`, border: `1px solid ${m.accent}30` }}
                   >
-                    <Icon className="h-5 w-5" style={{ color: s.accent }} />
+                    <Icon className="h-5 w-5" style={{ color: m.accent }} />
                   </div>
-                  <h3 className="font-semibold text-slate-900 text-sm mb-2">{s.title}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">{s.desc}</p>
+                  <h3 className="font-semibold text-slate-900 text-sm mb-2">{m.title}</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">{m.desc}</p>
                 </div>
               )
             })}
@@ -181,30 +184,28 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0891b2' }}>How it works</p>
-            <h2 className="text-4xl font-bold text-slate-900">One system that reads, remembers and recommends.</h2>
+            <h2 className="text-4xl font-bold text-slate-900">From data upload to action queue in four steps.</h2>
+            <p className="text-slate-500 mt-4 max-w-lg mx-auto">No data engineering. No integration project. Upload your exports and call files and VendorLens handles the rest.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Connector */}
-            <div className="hidden md:block absolute top-10 left-[calc(16.7%+20px)] right-[calc(16.7%+20px)] h-px" style={{ background: 'linear-gradient(90deg, transparent, #0891b2, #0d9488, transparent)' }} />
-
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {STEPS.map((s) => (
-              <div key={s.num} className="flex flex-col items-center md:items-start text-center md:text-left">
+              <div key={s.num} className="flex flex-col">
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-xl font-bold mb-5 shrink-0"
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center text-lg font-bold mb-4 shrink-0"
                   style={{ background: 'linear-gradient(135deg, #0369a1, #0891b2)', color: '#fff', boxShadow: '0 4px 16px rgba(8,145,178,0.25)' }}
                 >
                   {s.num}
                 </div>
-                <h3 className="font-semibold text-slate-900 text-base mb-2">{s.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{s.desc}</p>
+                <h3 className="font-semibold text-slate-900 text-sm mb-2">{s.title}</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Conversations ──────────────────────────────────────── */}
+      {/* ── Call intelligence callout ───────────────────────────── */}
       <section className="py-20 px-4 sm:px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <div
@@ -216,13 +217,21 @@ export default function LandingPage() {
           >
             <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none" style={{ background: 'radial-gradient(ellipse at top right, rgba(8,145,178,0.08) 0%, transparent 70%)' }} />
             <div className="relative max-w-xl">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#0891b2' }}>Conversations</p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: '#0891b2' }}>Call Intelligence</p>
               <h2 className="text-3xl font-bold text-slate-900 leading-snug">
-                What your team hears on customer calls sits next to what those customers actually buy.
+                What your team hears on customer calls sits beside what those customers actually buy.
               </h2>
               <p className="text-slate-600 mt-5 leading-relaxed">
-                Upload a recording or transcript from your team&apos;s calls with customers — sales conversations, account check-ins, renewal calls — and VendorLens extracts what each customer wants to buy, what is holding them back, what your team promised, and which competitors they mentioned. All of it is attached to that customer&apos;s account record, beside their order history. Nothing is typed in by hand.
+                Upload a recording or transcript from any customer call and VendorLens automatically extracts four things: what the customer wants to buy next, what objections are holding them back, what your rep committed to do, and which competitors came up. Everything is written to that account&apos;s record alongside their full order history — so your team has the complete picture before every call.
               </p>
+              <div className="mt-7 grid grid-cols-2 gap-3">
+                {['Buying intent extracted', 'Objections logged', 'Commitments tracked', 'Competitors flagged'].map(item => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-slate-700">
+                    <CheckCircle className="h-4 w-4 shrink-0" style={{ color: '#0891b2' }} />
+                    {item}
+                  </div>
+                ))}
+              </div>
               <Link
                 href="/signup"
                 className="inline-flex items-center gap-2 mt-8 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.02]"
@@ -236,13 +245,13 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Governed by design ─────────────────────────────────── */}
+      {/* ── Security ───────────────────────────────────────────── */}
       <section className="py-24 px-4 sm:px-6" style={{ background: '#f8fafc' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0891b2' }}>Security</p>
-            <h2 className="text-4xl font-bold text-slate-900">Built so your data stays yours.</h2>
-            <p className="text-slate-500 mt-4 max-w-xl mx-auto">Every workspace is isolated at the database level. Role-based access keeps each person to the right level of control.</p>
+            <h2 className="text-4xl font-bold text-slate-900">Your workspace is yours. Completely.</h2>
+            <p className="text-slate-500 mt-4 max-w-xl mx-auto">Every workspace is isolated at the database level with row-level security. No shared tables, no cross-tenant queries.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -275,8 +284,8 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: '#0891b2' }}>Pricing</p>
-            <h2 className="text-4xl font-bold text-slate-900">One platform. Credits for how much you use it.</h2>
-            <p className="text-slate-500 mt-3">Every plan includes every module. Credits refresh each billing cycle.</p>
+            <h2 className="text-4xl font-bold text-slate-900">Every module. Every plan. Pay for usage.</h2>
+            <p className="text-slate-500 mt-3">Credits are consumed when the AI runs an analysis. Every plan includes all six modules, unlimited team members, and unlimited historical data.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -285,8 +294,8 @@ export default function LandingPage() {
                 name: 'Free',
                 price: '$0',
                 per: 'per month',
-                credits: '200 credits / month',
-                features: ['Every module included', 'Unlimited team members', 'Unlimited historical data', '200 analysis credits'],
+                credits: '200 analysis credits / month',
+                features: ['All six intelligence modules', 'Unlimited team members', 'Unlimited historical data', '200 analysis credits'],
                 highlight: false,
                 badge: null,
               },
@@ -294,8 +303,8 @@ export default function LandingPage() {
                 name: 'Professional',
                 price: '$47',
                 per: 'per month',
-                credits: '4,000 credits / month',
-                features: ['Every module included', 'Unlimited team members', 'Unlimited historical data', '4,000 analysis credits', 'Daily briefing cadence', 'Priority support'],
+                credits: '4,000 analysis credits / month',
+                features: ['All six intelligence modules', 'Unlimited team members', 'Unlimited historical data', '4,000 analysis credits', 'Daily briefing cadence', 'Priority support'],
                 highlight: true,
                 badge: 'Most popular',
               },
@@ -303,8 +312,8 @@ export default function LandingPage() {
                 name: 'Business',
                 price: '$97',
                 per: 'per month',
-                credits: '11,000 credits / month',
-                features: ['Every module included', 'Unlimited team members', 'Unlimited historical data', '11,000 analysis credits', 'Heaviest-use cadences', 'Priority support'],
+                credits: '11,000 analysis credits / month',
+                features: ['All six intelligence modules', 'Unlimited team members', 'Unlimited historical data', '11,000 analysis credits', 'Highest-frequency cadences', 'Priority support'],
                 highlight: false,
                 badge: null,
               },
@@ -367,10 +376,10 @@ export default function LandingPage() {
       <section className="py-20 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #0c2d4a 0%, #0f3d5e 50%, #0c3a52 100%)' }}>
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white leading-snug">
-            See the accounts your totals are hiding.
+            Your first briefing, ready in minutes.
           </h2>
           <p className="text-slate-300 mt-5 leading-relaxed">
-            Upload your order history and your team&apos;s customer conversations. VendorLens reads them together, writes the briefing, and gives your team a queue to work. First item: the account most at risk of leaving.
+            Upload your order exports and your team&apos;s call recordings. VendorLens scores every account, writes the briefing, and builds the queue. Your team can start working it the same day.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
             <Link
@@ -397,9 +406,9 @@ export default function LandingPage() {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
           <p className="text-sm font-bold text-white tracking-tight">VendorLens</p>
           <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500">
-            <Link href="/#features" className="hover:text-slate-300 transition-colors">What it finds</Link>
+            <Link href="/#platform" className="hover:text-slate-300 transition-colors">Platform</Link>
             <Link href="/#how" className="hover:text-slate-300 transition-colors">How it works</Link>
-            <Link href="/pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
+            <Link href="/#pricing" className="hover:text-slate-300 transition-colors">Pricing</Link>
             <Link href="/signin" className="hover:text-slate-300 transition-colors">Sign in</Link>
           </div>
           <p className="text-xs text-slate-600">© 2025 VendorLens. All rights reserved.</p>

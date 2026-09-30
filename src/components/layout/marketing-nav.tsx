@@ -10,9 +10,9 @@ export function MarketingNav() {
         <div className="flex items-center gap-8">
           <Logo />
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-            <Link href="/#features" className="hover:text-slate-900 transition-colors">What it finds</Link>
+            <Link href="/#platform" className="hover:text-slate-900 transition-colors">Platform</Link>
             <Link href="/#how" className="hover:text-slate-900 transition-colors">How it works</Link>
-            <Link href="/pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
+            <Link href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
           </div>
         </div>
         <div className="flex items-center gap-3">
